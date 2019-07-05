@@ -1,0 +1,184 @@
+{% extends '@theme/layout.html.twig' %}
+
+{% block title %}{{ title(item, 'app_book') }}{% endblock %}
+{% block description %}{{ description(item, 'app_book') }}{% endblock %}
+{% block head %}
+    <link rel="canonical" href="{{ url('app_book', {id: item.id, slug: item.slug}) }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ path('app_book', {id: item.id, slug: item.slug}) }}">
+    <meta property="og:title" content="{{ item.name }}">
+    <meta property="og:description" content="{% if item.description is defined and item.description is not null %}{{ item.description|excerpt }}{% endif %}">
+    <meta property="og:image" content="{{ item.imageSrc }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ path('app_book', {id: item.id, slug: item.slug}) }}">
+    <meta property="twitter:title" content="{{ item.name }}">
+    <meta property="twitter:description" content="{% if item.description is defined and item.description is not null %}{{ item.description|excerpt }}{% endif %}">
+    <meta property="twitter:image" content="{{ item.imageSrc }}">
+
+    {{ displaySchemaOrgStructuredData(item, 'app_book') }}
+{% endblock %}
+
+{% block javascripts %}
+    {# description collapse js #}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let el = $('#collapseSummary');
+            let divHeight = el.prop('scrollHeight');
+            let lineHeight = parseInt(el.css('line-height'));
+            let lines = divHeight / lineHeight;
+            if (lines > {{ app_theme_options.summary_number_of_lines }}) {
+                //display show more/less button otherwise let it hidden
+                $('.collapsed').removeClass('d-none');
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {# description collapse css #}
+    {% set summary_line_height = 1.5 %}
+    <style>
+        #summary{
+            line-height: {{ summary_line_height }};
+        }
+        #summary p.collapse:not(.show) {
+            height: {{ app_theme_options.summary_number_of_lines*summary_line_height }}rem !important;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: {{ app_theme_options.summary_number_of_lines }};
+            -webkit-box-orient: vertical;
+        }
+        #summary p.collapsing {
+            min-height: {{ app_theme_options.summary_number_of_lines*summary_line_height }}rem !important;
+        }
+        #summary a.collapsed:after  {
+            content: '+ {{ 'more'|themeTrans }}';
+        }
+        #summary a:not(.collapsed):after {
+            content: '- {{ 'less'|themeTrans }}';
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            {% set src = displayImage(item.imageSrc, 'app_book') %}
+            {% if src is not empty %}
+                <div class="col-md-4">
+                    <img class="card-img" src="{{ src }}"  alt="{{ item.name }}">
+                </div>
+            {% endif %}
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1><strong>{{ item.name }}</strong></h1>
+                    {{ block('rating') }}
+                    <hr>
+                    {% if item.description is defined and item.description is not null %}
+                        <div id="summary" class="mb-3">
+                            <p class="collapse mb-0" id="collapseSummary">{{ item.description|raw }}</p>
+                            <a class="collapsed d-none" data-toggle="collapse" href="#collapseSummary" aria-label="{{ 'item.summary'|themeTrans }}" aria-expanded="false" aria-controls="collapseSummary"></a>
+                        </div>
+                    {% endif %}
+                    <p>
+                        {% if item.persons is defined and item.persons is not empty %}
+                            <strong>{{ 'item.authors'|themeTrans({'%count%': item.persons|length}) }}:</strong>
+                            {% for author in item.persons %}
+                                {{ author.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                            <br>
+                        {% endif %}
+                        {% if item.characters is defined and item.characters is not empty %}
+                            <strong>{{ 'item.characters'|themeTrans({'%count%': item.characters|length}) }}:</strong>
+                            {% for character in item.characters %}
+                                {{ character.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                            <br>
+                        {% endif %}
+                        {% if item.isbn10 is defined and item.isbn10 is not null %}
+                            <strong>{{ 'item.isbn'|themeTrans }}:</strong> {{ item.isbn10 }}<br>
+                        {% endif %}
+                        {% if item.isbn13 is defined and item.isbn13 is not null %}
+                            <strong>{{ 'item.isbn13'|themeTrans }}:</strong> {{ item.isbn13 }}<br>
+                        {% endif %}
+                        {% if item.pages is defined and item.pages is not null %}
+                            <strong>{{ 'item.pages'|themeTrans }}:</strong> {{ item.pages|localizednumber }}<br>
+                        {% endif %}
+                        {% if item.genres is defined and item.genres is not empty %}
+                            <strong>{{ 'item.genres'|themeTrans({'%count%': item.genres|length}) }}:</strong>
+                            {% for genre in item.genres %}
+                                {{ genre.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                            <br>
+                        {% endif %}
+                        {% if item.series is defined and item.series is not empty %}
+                            <strong>{{ 'item.series'|themeTrans }}:</strong>
+                            {% for series in item.series %}
+                                {{ series.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                            <br>
+                        {% endif %}
+                        {% if item.externalUrl is defined and item.externalUrl is not null %}
+                            <strong>{{ 'item.url'|themeTrans }}:</strong>&nbsp;<a target="_blank" href="{{ displayUrl(item.externalUrl) }}"><i class="fas fa-external-link-alt"></i> {{ item.externalUrl }}</a><br>
+                        {% endif %}
+                        {% if item.places is defined and item.places is not empty %}
+                            <strong>{{ 'item.places'|themeTrans({'%count%': item.places|length}) }}:</strong>
+                            {% for place in item.places %}
+                                {{ place.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                            <br>
+                        {% endif %}
+                        {% if item.releasedYear is defined and item.releasedYear is not null %}
+                            <strong>{{ 'item.released'|themeTrans }}:</strong> {{ item.releasedYear }}<br>
+                        {% endif %}
+                        {% if item.language is defined and item.language is not null %}
+                            <strong>{{ 'item.language'|themeTrans }}:</strong> {{ item.language.name }}<br>
+                        {% endif %}
+                        {% if item.format is defined and item.format is not null %}
+                            <strong>{{ 'item.format'|themeTrans }}:</strong> {{ item.format.name }}<br>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <a href="{{ ads('download', item.name) }}" class="card-link btn btn-block btn-lg btn-primary px-5">
+                        <i class="fas fa-file-pdf"></i>&nbsp;<strong>{{ 'item.download'|themeTrans }}</strong>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{{ ads('read', item.name) }}" class="card-link btn btn-block btn-lg btn-dark px-5">
+                        <i class="fab fa-readme"></i>&nbsp;<strong>{{ 'item.read'|themeTrans }}</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% if item.awards is defined and item.awards is not empty %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i class="fas fa-trophy"></i>
+                    {% for award in item.awards %}
+                        {{ award.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+    {% include '@theme/_books.html.twig' with {items: item.otherBooks } %}
+{% endblock %}
+
+{% block rating %}
+    {% if item.rating.weight and item.rating.value %}
+        <div id="rating">
+            {% for i in 1..item.rating.scale %}
+                <span class="fa fa-star {{ i <= item.rating.value|round ? 'checked' : '' }}"></span>
+            {% endfor %}
+            ({{ item.rating.value|round(2) }}) {{ item.rating.weight|localizednumber }} {{ 'item._votes'|themeTrans({'%count%': item.rating.weight}) }}
+        </div>
+    {% endif %}
+{% endblock %}

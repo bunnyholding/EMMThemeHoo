@@ -1,0 +1,12 @@
+{% extends '@theme/layout.html.twig' %}
+
+{% block title %}{{ 'index.title'|themeTrans }}{% endblock %}
+
+{% block body %}
+    <div id="latest">
+        {% include '@theme/_books.html.twig' with {items: extra.latestBooks} %}
+    </div>
+    <div id="popular">
+        {% include '@theme/_books.html.twig' with {items: extra.popularBooks} %}
+    </div>
+{% endblock %}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="messages.en">
+    <unit id="messages">
+      <segment>
+        <source>more</source>
+        <target>More</target>
+      </segment>
+      <segment>
+        <source>less</source>
+        <target>Less</target>
+      </segment>
+      <segment>
+        <source>index.title</source>
+        <target>Welcome</target>
+      </segment>
+      <segment>
+        <source>item._votes</source>
+        <target>{1} vote|[2,Inf[ votes</target>
+      </segment>
+      <segment>
+        <source>item.download</source>
+        <target>Download</target>
+      </segment>
+      <segment>
+        <source>item.read</source>
+        <target>Read</target>
+      </segment>
+      <segment>
+        <source>item.summary</source>
+        <target>Summary</target>
+      </segment>
+      <segment>
+        <source>item.authors</source>
+        <target>{1} Author|[2,Inf[ Authors</target>
+      </segment>
+      <segment>
+        <source>item.characters</source>
+        <target>{1} Character|[2,Inf[ Characters</target>
+      </segment>
+      <segment>
+        <source>item.places</source>
+        <target>{1} Place|[2,Inf[ Places</target>
+      </segment>
+      <segment>
+        <source>item.awards</source>
+        <target>{1} Award|[2,Inf[ Awards</target>
+      </segment>
+      <segment>
+        <source>item.genres</source>
+        <target>{1} Genre|[2,Inf[ Genres</target>
+      </segment>
+      <segment>
+        <source>item.series</source>
+        <target>Series</target>
+      </segment>
+      <segment>
+        <source>item.pages</source>
+        <target>Pages</target>
+      </segment>
+      <segment>
+        <source>item.url</source>
+        <target>URL</target>
+      </segment>
+      <segment>
+        <source>item.isbn</source>
+        <target>ISBN</target>
+      </segment>
+      <segment>
+        <source>item.isbn13</source>
+        <target>ISBN13</target>
+      </segment>
+      <segment>
+        <source>item.language</source>
+        <target>Language</target>
+      </segment>
+      <segment>
+        <source>item.released</source>
+        <target>Released</target>
+      </segment>
+      <segment>
+        <source>item.format</source>
+        <target>Format</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

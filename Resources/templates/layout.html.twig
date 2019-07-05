@@ -1,0 +1,35 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="{{ app_locale }}">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="robots" content="index, follow">
+    <link rel="shortcut icon" type="image/png" href="{{ themeAsset('images/favicon.png') }}">
+    <!-- Address bar color -->
+    <meta name="theme-color" content="{{ app_theme_options.address_bar_color }}"/>
+    <meta name="msapplication-navbutton-color" content="{{ app_theme_options.address_bar_color }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="{{ app_theme_options.address_bar_color }}">
+
+    {# SEO part #}
+    <title>{% block title %}{% endblock %} | {{ app_website_name }} - {{ app_slogan }}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    {% block head %}{% endblock %}
+
+    {% include '@theme/styles.html.twig' %}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% include '@theme/header.html.twig' %}
+<div class="container" style="padding-bottom: 20px;">
+    {% block body %}{% endblock %}
+</div>
+{% include '@theme/footer.html.twig' %}
+{% include '@theme/javascripts.html.twig' %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
+{% endspaceless %}
