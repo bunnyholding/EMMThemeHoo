@@ -1,7 +1,7 @@
 {% extends '@theme/layout.html.twig' %}
 
-{% block title %}{{ title(item, 'app_book') }}{% endblock %}
-{% block description %}{{ description(item, 'app_book') }}{% endblock %}
+{% block title %}{{ renderSeo(item, app_item_settings.app_book.title, app_item_settings.app_book.title_options) }}{% endblock %}
+{% block description %}{{ renderSeo(item, app_item_settings.app_book.description, app_item_settings.app_book.description_options) }}{% endblock %}
 {% block head %}
     <link rel="canonical" href="{{ url('app_book', {id: item.id, slug: item.slug}) }}">
 
@@ -19,7 +19,7 @@
     <meta property="twitter:description" content="{% if item.description is defined and item.description is not null %}{{ item.description|excerpt }}{% endif %}">
     <meta property="twitter:image" content="{{ item.imageSrc }}">
 
-    {{ displaySchemaOrgStructuredData(item, 'app_book') }}
+    {{ displaySchemaOrgStructuredData(item, app_item_settings.app_book, 'app_book') }}
 {% endblock %}
 
 {% block javascripts %}
@@ -67,7 +67,7 @@
 {% block body %}
     <div class="card mb-3">
         <div class="row no-gutters">
-            {% set src = displayImage(item.imageSrc, 'app_book') %}
+            {% set src = displayImage(item.imageSrc, app_item_settings.app_book) %}
             {% if src is not empty %}
                 <div class="col-md-4">
                     <img class="card-img" src="{{ src }}"  alt="{{ item.name }}">

@@ -2,7 +2,7 @@
     <div class="card-columns">
         {% for item in items %}
             <div class="card">
-                {% set src = displayImage(item.imageSrc, 'app_book') %}
+                {% set src = displayImage(item.imageSrc, app_item_settings.app_book) %}
                 {% if src is not empty %}
                     <a href="{{ path('app_book', {id: item.id, slug: item.slug}) }}">
                         <img class="card-img-top" src="{{ src }}" alt="{{ item.name }}">
