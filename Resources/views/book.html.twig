@@ -19,7 +19,7 @@
     <meta property="twitter:description" content="{% if item.description is defined and item.description is not null %}{{ item.description|excerpt }}{% endif %}">
     <meta property="twitter:image" content="{{ item.imageSrc }}">
 
-    {{ displaySchemaOrgStructuredData(item, app_item_settings.app_book, 'app_book') }}
+    {{ displaySchemaOrgStructuredData(item, 'Book', app_item_settings.app_book, 'app_book') }}
 {% endblock %}
 
 {% block javascripts %}
