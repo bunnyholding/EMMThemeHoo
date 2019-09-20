@@ -123,7 +123,7 @@
                             <br>
                         {% endif %}
                         {% if item.externalUrl is defined and item.externalUrl is not null %}
-                            <strong>{{ 'item.url'|themeTrans }}:</strong>&nbsp;<a target="_blank" href="{{ displayUrl(item.externalUrl) }}"><i class="fas fa-external-link-alt"></i> {{ item.externalUrl }}</a><br>
+                            <strong>{{ 'item.url'|themeTrans }}:</strong>&nbsp;<a target="_blank" href="{{ derefererUrl(item.externalUrl) }}"><i class="fas fa-external-link-alt"></i> {{ item.externalUrl }}</a><br>
                         {% endif %}
                         {% if item.places is defined and item.places is not empty %}
                             <strong>{{ 'item.places'|themeTrans({'%count%': item.places|length}) }}:</strong>
